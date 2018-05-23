@@ -19,6 +19,9 @@ custom:
               type: string
             message:
               type: string
+          required:
+            - phoneNo
+            - message
 
 provider:
   name: aws
