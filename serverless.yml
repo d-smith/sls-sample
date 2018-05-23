@@ -2,6 +2,24 @@ service: sample-service
 
 frameworkVersion: ">=1.2.0 <2.0.0"
 
+custom:
+  documentation:
+    api:
+      info:
+        version: v0.0.1
+        title: Sample
+        description: Sample api with docs and model
+    models:
+      - name: sample
+        contentType: application/json
+        schema:
+          type: object
+          properties:
+            phoneNo:
+              type: string
+            message:
+              type: string
+
 provider:
   name: aws
   runtime: nodejs8.10
@@ -14,4 +32,26 @@ functions:
           path: /foo
           method: post
           integration: lambda
+          reqValidatorName: onlyBody
+          documentation:
+            summary: some summary
+            description: some description
+            requestBody:
+              description: some description
+            requestModels:
+              application/json: sample
 
+resources:
+  Resources:
+    onlyBody:
+      Type: AWS::ApiGateway::RequestValidator
+      Properties:
+        Name: 'only-body'
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true # true or false
+        ValidateRequestParameters: false # true or false
+
+plugins:
+  - serverless-reqvalidator-plugin
+  - serverless-aws-documentation
