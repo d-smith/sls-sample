@@ -88,3 +88,4 @@ aws apigateway update-integration --rest-api-id xxxxxxxxxx --resource-id 259cks 
 
 Hmmm... still passes through application/x-www-form-urlencoded - what's going on?
 
+NEXT: TRY specifying content handling on the request... see [here](https://docs.aws.amazon.com/cli/latest/reference/apigateway/update-integration.html) for why this is worth trying.
