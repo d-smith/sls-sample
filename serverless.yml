@@ -34,8 +34,14 @@ functions:
       - http:
           path: /foo
           method: post
+          consumes:
+          - "application/json"
           integration: lambda
           reqValidatorName: onlyBody
+          request:
+            passthrough: NEVER
+            template:
+              application/json: "$input.json('$')"
           documentation:
             summary: some summary
             description: some description
