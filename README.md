@@ -1,6 +1,6 @@
 Simple project to explore adding models and gateway model enforcement to a serverless application.
 
-Note: looks like there's no way to exclude support for x-www-form-urlencoded in terms of the gateway body mapping templates: serverless framework creates a default request template for this content type.
+Note: by default a serverless framework deploy creates request body mappings for application/json and application/x-www-form-urlencoded content types (see [here](https://github.com/serverless/serverless/issues/3280)).
 
 This means requests defaulting to application/x-www-form-urlencoded reach the lambda:
 
@@ -86,6 +86,4 @@ You can remove the request template for application/x-www-form-urlencoded via th
 aws apigateway update-integration --rest-api-id xxxxxxxxxx --resource-id 259cks --http-method POST --patch-operations op='remove',path='/requestTemplates/application~1x-www-form-urlencoded'
 </pre>
 
-Hmmm... still passes through application/x-www-form-urlencoded - what's going on?
-
-NEXT: TRY specifying content handling on the request... see [here](https://docs.aws.amazon.com/cli/latest/reference/apigateway/update-integration.html) for why this is worth trying.
+Note, however, at this stage both content types are still supported. You must redeploy the api via `sls deploy` at which point only application/json will be an allowed content type.
