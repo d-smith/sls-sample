@@ -48,7 +48,7 @@ With application/json:
 <pre>
 $ curl https://i2fgtv9sce.execute-api.us-east-1.amazonaws.com/dev/foo -d '{}' -H 'content-type: application/json'
 {"message": "Invalid request body"}
-<pre>
+</pre>
 
 You can see the request template created by the framework using the aws cli:
 
